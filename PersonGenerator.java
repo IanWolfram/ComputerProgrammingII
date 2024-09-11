@@ -26,7 +26,7 @@ public class PersonGenerator
 
         do
         {
-            ID = SafeInput.getNonZeroLenString(in, "Enter your ID 000001");
+            ID = SafeInput.getNonZeroLenString(in, "Enter your ID 001");
             fName = SafeInput.getNonZeroLenString(in, "Enter your first name");
             lName = SafeInput.getNonZeroLenString(in, "Enter your last name");
             title = SafeInput.getNonZeroLenString(in, "Enter your title");
