@@ -1,33 +1,58 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class GameController {
-    private final Game game;
+    private GameBoard gameBoard;
+    private int missCounter = 0;
+    private int strikeCounter = 0;
 
-    public GameController(Game game) {
-        this.game = game;
+    public GameController(GameBoard board) {
+        this.gameBoard = board;  // Ensure gameBoard is properly initialized
     }
 
-    public void handleMove(Tile tile) {
-        if (tile.getText().isEmpty()) {
-            tile.setText(game.getCurrentPlayer().getSymbol());
-            if (game.checkWin()) {
-                endGame(game.getCurrentPlayer().getName() + " wins!");
-            } else if (game.getBoard().isFull()) {
-                endGame("It's a tie!");
-            } else {
-                game.switchPlayer();
+    // Accessor to retrieve the GameBoard
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public void handleCellClick(int row, int col) {
+        Cell cell = gameBoard.getCell(row, col);
+        if (cell.isHit()) {
+            JOptionPane.showMessageDialog(null, "Already clicked!");
+            return;
+        }
+
+        cell.hit();
+        if (cell.hasShip()) {
+            gameBoard.Hitscount();
+            missCounter = 0;  // reset miss counter on hit
+            JOptionPane.showMessageDialog(null, "Hit!");
+            if (gameBoard.allShipsSunk()) {
+                JOptionPane.showMessageDialog(null, "You won! All ships are sunk.");
             }
+
         } else {
-            JOptionPane.showMessageDialog(null, "Invalid move! Try again.");
+            gameBoard.Missescount();
+            missCounter++;
+            JOptionPane.showMessageDialog(null, "Miss!");
+            if (missCounter == 5) {
+                strikeCounter++;
+                missCounter = 0;  // reset miss counter
+                if (strikeCounter == 3) {
+                    JOptionPane.showMessageDialog(null, "Game over! You lost.");
+                }
+            }
         }
     }
 
-    private void endGame(String message) {
-        int response = JOptionPane.showConfirmDialog(null, message + " Play again?", "Game Over", JOptionPane.YES_NO_OPTION);
-        if (response == JOptionPane.YES_OPTION) {
-            game.reset();
-        } else {
-            System.exit(0);
-        }
+    public void resetGame ()
+    {
+        gameBoard = new GameBoard();
+        missCounter = 0;
+        strikeCounter = 0;
+        gameBoard.resetHits();
+    }
+
+    public int getStrikeCounter() {
+        return strikeCounter;
     }
 }
