@@ -92,7 +92,7 @@ public class RandProductSearch extends JFrame {
                     {
                         found = true;
                         resultsArea.append("ID: " + id + "\n");
-                        resultsArea.append("Name: " + fields[1].trim() + "\n");
+                        resultsArea.append("Name: " + name + "\n");
                         resultsArea.append("Description: " + description + "\n");
                         resultsArea.append("Cost: $" + cost + "\n");
                         resultsArea.append("---------------------------\n");
