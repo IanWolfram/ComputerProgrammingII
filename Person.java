@@ -141,7 +141,6 @@ public class Person {
         return retString;
     }
 
-
     /**
      *
      * @return
@@ -155,7 +154,7 @@ public class Person {
                 + DQ + "lastName" + DQ + ":" + DQ + lastName +DQ + ","
                 + DQ + "ID" + DQ + ":" + DQ + ID +DQ + ","
                 + DQ + "title" + DQ + ":" + DQ + title +DQ + ","
-                + DQ + "yob" +DQ + ":" + yob +"}";
+                + DQ + "yob" + DQ + ":" + DQ + yob +DQ +"}";
         return retString;
     }
 
